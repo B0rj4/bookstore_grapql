@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Bock store testing GrapQl",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js"
   },

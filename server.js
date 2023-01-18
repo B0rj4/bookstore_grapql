@@ -1,5 +1,10 @@
 import express from "express";
-import { GraphQLSchema, GraphQLList, GraphQLObjectType } from "graphql";
+import {
+  GraphQLSchema,
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLInt,
+} from "graphql";
 
 import { BookType } from "./schemas/book.js";
 import { AuthorType } from "./schemas/author.js";
@@ -11,6 +16,14 @@ const RootQueryType = new GraphQLObjectType({
   name: "Query",
   description: "Root Query",
   fields: () => ({
+    book: {
+      type: BookType,
+      description: "Single Book",
+      args: {
+        id: { type: GraphQLInt },
+      },
+      resolve: (parent, args) => BOOKS.find((book) => book.id === args.id),
+    },
     books: {
       type: new GraphQLList(BookType),
       description: "List of books",

@@ -1,11 +1,11 @@
-const {
-  GraphQLInputObjectType,
+import {
   GraphQLNonNull,
   GraphQLInt,
   GraphQLString,
-} = require("graphql");
+  GraphQLObjectType,
+} from "graphql";
 
-const AuthorType = new GraphQLInputObjectType({
+const AuthorType = new GraphQLObjectType({
   name: "Author",
   description: "This is author that can write books",
   fields: () => ({
@@ -14,4 +14,4 @@ const AuthorType = new GraphQLInputObjectType({
   }),
 });
 
-module.export = { AuthorType };
+export { AuthorType };

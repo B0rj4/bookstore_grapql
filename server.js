@@ -1,9 +1,9 @@
 import express from "express";
 import { GraphQLSchema, GraphQLList, GraphQLObjectType } from "graphql";
-// const { AuthorType } = require("./schemas/author");
 
 import { BookType } from "./schemas/book.js";
-import { BOOKS } from "./temporalDb.js";
+import { AuthorType } from "./schemas/author.js";
+import { AUTHORS, BOOKS } from "./temporalDb.js";
 import { graphqlHTTP as expressGraphQL } from "express-graphql";
 const app = express();
 
@@ -15,6 +15,11 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(BookType),
       description: "List of books",
       resolve: () => BOOKS,
+    },
+    authors: {
+      type: new GraphQLList(AuthorType),
+      description: "List of books",
+      resolve: () => AUTHORS,
     },
   }),
 });

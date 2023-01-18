@@ -4,6 +4,8 @@ import {
   GraphQLList,
   GraphQLObjectType,
   GraphQLInt,
+  GraphQLNonNull,
+  GraphQLString,
 } from "graphql";
 
 import { BookType } from "./schemas/book.js";
@@ -46,8 +48,39 @@ const RootQueryType = new GraphQLObjectType({
   }),
 });
 
+const RootMutationType = new GraphQLObjectType({
+  name: "Muration",
+  description: "Change things",
+  fields: () => ({
+    addBook: {
+      type: BookType,
+      description: "Add one Book",
+      args: {
+        name: {
+          type: GraphQLNonNull(GraphQLString),
+        },
+        authorId: {
+          type: GraphQLNonNull(GraphQLInt),
+        },
+      },
+      resolve: (parent, args) => {
+        const book = {
+          id: BOOKS.length + 1,
+          name: args.name,
+          authorId: args.authorId,
+        };
+
+        BOOKS.push(book);
+
+        return book;
+      },
+    },
+  }),
+});
+
 const schema = new GraphQLSchema({
   query: RootQueryType,
+  mutation: RootMutationType,
 });
 
 app.use(
